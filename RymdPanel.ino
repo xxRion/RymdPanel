@@ -62,70 +62,36 @@ void setup() {
 }
 
 void loop() {
-  int buttonState1;
-  int buttonState2;
-  int buttonState3;
-  int buttonState4;
-  int buttonState5;
-  int buttonState6;
-  int buttonState7;
-  int buttonState8;
-  int buttonState9;
-  int buttonState10;
-  
-  led_blink(A0);
-  led_blink(A1);
-  led_blink(A2);
-  led_blink(A3);
-  led_blink(A4);
-  led_blink(A5);
-  led_blink(A6);
-  led_blink(A7);  
-  led_blink(A8);
-  led_blink(A9);
-  led_blink(A11);
-  led_blink(A10);
-  
-  buttonState1 = digitalRead(53);
-  led_blink(52);
-  buttonState2 = digitalRead(51);
-  led_blink(50);
-  buttonState3 = digitalRead(49);
-  led_blink(48);
-  buttonState4 = digitalRead(47);
-  led_blink(46);
-  buttonState5 = digitalRead(45);
-  led_blink(44);
-  buttonState6 = digitalRead(43);
-  led_blink(42);
-  buttonState7 = digitalRead(41);
-  led_blink(40);
-  buttonState8 = digitalRead(39);
-  led_blink(38);
-  buttonState9 = digitalRead(37);
-  led_blink(36);
-  buttonState10 = digitalRead(35);
-  led_blink(34);
-  if (buttonState1 == LOW) led_flash(52);
-  if (buttonState2 == LOW) led_flash(50);
-  if (buttonState3 == LOW) led_flash(48);
-  if (buttonState4 == LOW) led_flash(46);
-  if (buttonState5 == LOW) led_flash(44);
-  if (buttonState6 == LOW) led_flash(42);
-  if (buttonState7 == LOW) led_flash(40);
-  if (buttonState8 == LOW) led_flash(38);
-  if (buttonState9 == LOW) led_flash(36);
-  if (buttonState10 == LOW) led_flash(34);
+  int buttonStates[9];
+  int buttonStatePins[] = {
+    53, 51, 49, 47, 45, 43, 41, 39, 37, 35  
+  };
+  int buttonLedPins[] = {
+    52, 50, 48, 46, 44, 42, 40, 38, 36, 34
+  };
+  int buttonCount = 10;
+  int redPins[] = {
+    //10 and 11 accidentaly connected in reverse
+    A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A11, A10 
+  };       
+  int redCount = 12;
 
-  led_blink(34);
-  led_blink(36);
-  led_blink(38);
-  led_blink(40);
-  led_blink(42);
-  led_blink(44);
-  led_blink(46);
-  led_blink(48);
-  led_blink(50);
-  led_blink(52);
+  for (int thisPin = 0; thisPin < redCount; thisPin++) {
+    led_blink(redPins[thisPin]);
+  }
+
+  for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
+    buttonStates[thisPin] = digitalRead(buttonStatePins[thisPin]);
+    led_blink(buttonLedPins[thisPin]);
+  }
   
+  for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
+    if (buttonStates[thisPin] == LOW) led_flash(buttonLedPins[thisPin]);
+  }
+
+  // Something breaks if we led_blink(buttonLedPins[buttonCount-1])
+  // two times in a row. Skip it by starting with -2 offset.
+  for (int thisPin = buttonCount - 2; thisPin >= 0; thisPin--) {
+    led_blink(buttonLedPins[thisPin]);
+  }
 }
