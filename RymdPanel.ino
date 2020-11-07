@@ -22,23 +22,6 @@ void led_flash(int led) {
   }
 }
 
-void setup() {
-  //12 st röda led i en cirkel
-  for (int thisPin = 0; thisPin < redCount; thisPin++) {
-    pinMode(redPins[thisPin], OUTPUT);
-  }
-
-  //10 st strömbrytare, pins default to inputs, but I want pullup-resistor enabled
-  for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
-    pinMode(buttonStatePins[thisPin], INPUT_PULLUP);
-  }
-
-  //10 st led i strömbrytare
-  for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
-    pinMode(buttonLedPins[thisPin], OUTPUT);
-  }
-}
-
 void system_test() {
   int buttonStates[9];
 
@@ -58,6 +41,25 @@ void system_test() {
   for (int thisPin = buttonCount - 1; thisPin >= 0; thisPin--) {
     led_blink(buttonLedPins[thisPin]);
   }
+}
+
+void setup() {
+  //12 st röda led i en cirkel
+  for (int thisPin = 0; thisPin < redCount; thisPin++) {
+    pinMode(redPins[thisPin], OUTPUT);
+  }
+
+  //10 st strömbrytare, pins default to inputs, but I want pullup-resistor enabled
+  for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
+    pinMode(buttonStatePins[thisPin], INPUT_PULLUP);
+  }
+
+  //10 st led i strömbrytare
+  for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
+    pinMode(buttonLedPins[thisPin], OUTPUT);
+  }
+
+  system_test();
 }
 
 void loop() {
