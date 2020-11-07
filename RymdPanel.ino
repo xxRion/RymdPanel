@@ -23,6 +23,8 @@ void led_flash(int led) {
 }
 
 void setup() {
+  Serial.begin(9600);
+
   //12 st röda led i en cirkel
   for (int thisPin = 0; thisPin < redCount; thisPin++) {
     pinMode(redPins[thisPin], OUTPUT);
@@ -56,6 +58,10 @@ void system_test() {
   }
 
   for (int thisPin = buttonCount - 1; thisPin >= 0; thisPin--) {
+    Serial.print("thisPin=");
+    Serial.print(thisPin);
+    Serial.print(" and buttonLedPins=");
+    Serial.println(buttonLedPins[thisPin]);
     led_blink(buttonLedPins[thisPin]);
   }
 }
