@@ -18,7 +18,7 @@ void led_flash(int led) {
     digitalWrite(led, HIGH);
     delay(delay_t);
     digitalWrite(led, LOW);
-    delay(delay_t);    
+    delay(delay_t);
   }
 }
 
@@ -44,7 +44,7 @@ void setup() {
   }
 }
 
-void loop() {
+void system_test() {
   int buttonStates[9];
 
   for (int thisPin = 0; thisPin < redCount; thisPin++) {
@@ -62,5 +62,15 @@ void loop() {
 
   for (int thisPin = buttonCount - 1; thisPin >= 0; thisPin--) {
     led_blink(buttonLedPins[thisPin]);
+  }
+}
+
+void loop() {
+  int buttonStates[9];
+  for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
+    buttonStates[thisPin] = digitalRead(buttonStatePins[thisPin]);
+  }
+    for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
+      if (buttonStates[thisPin] == LOW) system_test();
   }
 }
