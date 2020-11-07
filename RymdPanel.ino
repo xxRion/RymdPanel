@@ -2,10 +2,10 @@
 int delay_t=1000/12; //1 sekund delat med 12 lampor
 int buttonStatePins[] = { 53, 51, 49, 47, 45, 43, 41, 39, 37, 35  };
 int buttonLedPins[]   = { 52, 50, 48, 46, 44, 42, 40, 38, 36, 34 };
-int buttonCount = 10;
+int buttonCount = sizeof(buttonLedPins)/sizeof(buttonLedPins[0]);
 //A10 and A11 accidentaly connected in reverse
 int redPins[] = { A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A11, A10 };
-int redCount = 12;
+int redCount = sizeof(redPins)/sizeof(redPins[0]);
 
 void led_blink(int led) {
   digitalWrite(led, HIGH);
@@ -23,11 +23,6 @@ void led_flash(int led) {
 }
 
 void setup() {
-/* * * * * 
-  Serial.begin(9600);
-  Serial.print("A2=");
-  Serial.println(A2);
-* * * * */
   //12 st röda led i en cirkel
   for (int thisPin = 0; thisPin < redCount; thisPin++) {
     pinMode(redPins[thisPin], OUTPUT);
@@ -70,7 +65,7 @@ void loop() {
   for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
     buttonStates[thisPin] = digitalRead(buttonStatePins[thisPin]);
   }
-    for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
-      if (buttonStates[thisPin] == LOW) system_test();
+  for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
+    if (buttonStates[thisPin] == LOW) system_test();
   }
 }
