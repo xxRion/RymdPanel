@@ -1,6 +1,6 @@
 /*** Globals ***/
 int delay_t=1000/12; //1 sekund delat med 12 lampor
-int buttonStatePins[] = { 53, 51, 49, 47, 45, 43, 41, 39, 37, 35  };
+int buttonStatePins[] = { 53, 51, 49, 47, 45, 43, 41, 39, 37, 35 };
 int buttonLedPins[]   = { 52, 50, 48, 46, 44, 42, 40, 38, 36, 34 };
 int buttonCount = sizeof(buttonLedPins)/sizeof(buttonLedPins[0]);
 //A10 and A11 accidentaly connected in reverse
@@ -23,7 +23,7 @@ void led_flash(int led) {
 }
 
 void system_test() {
-  int buttonStates[9];
+  int buttonStates[buttonCount];
 
   for (int thisPin = 0; thisPin < redCount; thisPin++) {
     led_blink(redPins[thisPin]);
@@ -63,7 +63,7 @@ void setup() {
 }
 
 void loop() {
-  int buttonStates[9];
+  int buttonStates[buttonCount];
   for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
     buttonStates[thisPin] = digitalRead(buttonStatePins[thisPin]);
   }
