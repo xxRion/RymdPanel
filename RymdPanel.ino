@@ -67,8 +67,6 @@ int pressed_button_pin () {
     }
     for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
       if (buttonStates[thisPin] == LOW) {
-	Serial.print("pressedButtonLed=");
-        Serial.println(buttonLedPins[thisPin]);
         return(buttonLedPins[thisPin]);
       }
     }
@@ -76,7 +74,6 @@ int pressed_button_pin () {
 }
 
 void simon_says () {
-  Serial.println("simon_says launched");
   // Light up random button, wait for user to do the same
   // Keep adding more and more buttons until user is unable
   // to replay the entire sequence.
@@ -95,26 +92,20 @@ void simon_says () {
     }
     // Read user input
     for (int thisPos = 0; thisPos <= seqpos; thisPos++) {
-      Serial.print("sequenceButtonLed=");
-      Serial.println(sequence[thisPos]);
       // Blink if correct light selected
       if (pressed_button_pin() == sequence[thisPos]) {
         led_on_time(sequence[thisPos], flashtime);
       // "Die" if wrong one is pushed
       } else {
-	Serial.println("died");
         flash_ring();
         return;
       }
     }
-    Serial.print("seqpos while loop done, seqpos: ");
-    Serial.println(seqpos);
     seqpos++;
   }
 }
 
 void setup() {
-  Serial.begin(9600);
 
   //12 st röda led i en cirkel
   for (int thisPin = 0; thisPin < redCount; thisPin++) {
