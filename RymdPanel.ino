@@ -6,8 +6,8 @@ int buttonCount = sizeof(buttonLedPins)/sizeof(buttonLedPins[0]);
 //A10 and A11 accidentaly connected in reverse
 int redPins[] = { A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A11, A10 };
 int redCount = sizeof(redPins)/sizeof(redPins[0]);
-int keyStart = 9;
-int keyOn = 8;
+int KeyStartPin = 9;
+int KeyOnPin = 8;
 
 void led_blink(int led) {
   digitalWrite(led, HIGH);
@@ -57,8 +57,8 @@ void setup() {
   }
 
   // Start key pins
-  pinMode(keyStart, INPUT_PULLUP);
-  pinMode(keyOn, INPUT_PULLUP);
+  pinMode(KeyStartPin, INPUT_PULLUP);
+  pinMode(KeyOnPin, INPUT_PULLUP);
 
   //10 st led i strömbrytare
   for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
@@ -76,6 +76,6 @@ void loop() {
   for (int thisPin = 0; thisPin < buttonCount; thisPin++) {
     if (buttonStates[thisPin] == LOW) system_test();
   }
-  if (digitalRead(keyOn) == LOW) led_blink(redPins[5]);
-  if (digitalRead(keyStart) == LOW) led_blink(redPins[7]);
+  if (digitalRead(KeyOnPin) == LOW) led_blink(redPins[5]);
+  if (digitalRead(KeyStartPin) == LOW) led_blink(redPins[7]);
 }
